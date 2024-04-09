@@ -2,10 +2,10 @@ var express = require('express');
 const mongoose = require('mongoose');
 
 const contactSchema = new mongoose.Schema({
-    contact_name: { bsonType: String },
-    contact_email: { bsonType: String },
-    contact_phone: { bsonType: Number },
-    message: { bsonType: String }
+    contact_name: { type: String },
+    contact_email: { type: String },
+    contact_phone: { type: Number },
+    message: { type: String }
 });
 const ContactModel = mongoose.model('contact', contactSchema);
 

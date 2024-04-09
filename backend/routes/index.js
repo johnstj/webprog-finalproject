@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var contact = require('../controllers/contact');
+var rating = require('../controllers/rating');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -17,6 +18,11 @@ router.get('/rating', function(req, res, next) {
   res.render('rating', { title: 'Rate a Restaurant' });
 });
 
+/* POST new rating */
+router.post('/rating/submitRating', function(req, res, next) {
+  rating.storeRating(req, res);
+});
+
 /* GET contact page. */
 router.get('/contact', function(req, res, next) {
   res.render('contact', { title: 'Contact' });
@@ -25,7 +31,6 @@ router.get('/contact', function(req, res, next) {
 /* POST contact form. */
 router.post('/contact/submitForm', function(req, res, next) {
   contact.storeContact(req, res);
-  //res.render('contact', { title: 'Contact' });
 });
 
 /* GET about page. */
