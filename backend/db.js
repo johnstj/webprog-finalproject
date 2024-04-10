@@ -3,10 +3,12 @@ const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
 
+//local db mongodb://localhost:27017/restaurant_rater
+
 // Connect to MongoDB database
 const connectToDB = async() => {
     try {
-        const poolConnection = await mongoose.connect('mongodb://localhost:27017/restaurant_rater');
+        const poolConnection = await mongoose.connect(process.env.MONGO_URI);
         console.log("DB Connected");
         // close connection only when we're certain application is finished
         // poolConnection.close();
