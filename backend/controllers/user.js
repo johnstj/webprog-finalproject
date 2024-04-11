@@ -11,13 +11,13 @@ const userSchema = new mongoose.Schema({
 const UserModel = mongoose.model('user', userSchema);
 
 async function storeUser(req, res) {
-    const { username, fullname, email, hashedPassword, accountCreated } = req.body;
+    const { username, fullname, email, hashedPassword } = req.body;
     let newUser = new UserModel({
         user_name: username,
         full_name: fullname,
         hashed_password: hashedPassword,
         user_email: email,
-        account_created: accountCreated
+        account_created: new Date()
     });
 
     try {

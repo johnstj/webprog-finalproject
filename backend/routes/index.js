@@ -21,6 +21,8 @@ router.get('/rating', function(req, res, next) {
 /* POST new rating */
 router.post('/rating/submitRating', function(req, res, next) {
   rating.storeRating(req, res);
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.send('');
 });
 
 /* GET contact page. */
