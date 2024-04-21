@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../controllers/user.js');
+const jwt = require('jsonwebtoken');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -8,26 +9,13 @@ router.get('/', function(req, res, next) {
 });
 
 /* POST new account */
-router.post('/createUser', function(req, res, next) {
-  user.storeRating(req, res);
-  res.send();
+router.post('/createUser', function(req, res) {
+  user.storeUser(req, res);
 });
 
-router.post('/login', function(req, res, next) {
-  const user = 
+/* POST login to account */
+router.post('/login', function(req, res) {
+  user.checkUser(req, res);
 });
-
-function ensureToken(req, res, next) {
-  const bearerHeader = req.headers["authorization"];
-  if(typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(" ");
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next(); 
-  }
-  else {
-    res.sendStatus(403);
-  }
-}
 
 module.exports = router;

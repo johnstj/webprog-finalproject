@@ -1,46 +1,34 @@
-.contactForm button {
+.loginForm button {
     background-color: greenyellow;
     color:black;
 }
 
-.contactForm button:hover {
+.loginForm button:hover {
     background-color: olivedrab;
     color:white;
 }
 
-.contactForm input, textarea {
+.loginForm input {
     background-color: greenyellow;
     border: 2px solid #f2f2f2;
-    width: 95%;
+    width: 20%;
     opacity: 50%;
 }
 
-.contactForm textarea {
+.loginForm textarea {
     flex-grow: 1;
 }
 
-.contactForm label {
+.loginForm label {
     display: inline-block;
     inline-size: 100px;
 }
 
-#userMsg {
+#usernameValidation {
     display: none;
 }
 
-#nameValidation {
-    display: none;
-}
-
-#emailValidation {
-    display: none;
-}
-
-#msgValidation {
-    display: none;
-}
-
-#phoneValidation {
+#passwordValidation {
     display: none;
 }
 

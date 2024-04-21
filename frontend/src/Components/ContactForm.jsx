@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './ContactForm.css';
 
 async function sendFormData(name, email, msg, phone) {
-    await fetch('http://localhost:3001/createUser', {
+    await fetch('http://localhost:3001/contact/submitForm', {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify({
-            contact_name: name,
-            contact_email: email,
-            contact_phone: phone,
+            name: name,
+            email: email,
+            phone: phone,
             message: msg
         }),
-        // headers: {
-        //     'Content-Type': 'application/json',
-        //     'Access-Control-Allow-Origin': '*',
-        // },
+        headers: {
+            'content-type': 'application/json',
+            'Access-Control-Allow-Origin': "*",
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        },
     })
     .then(function() {
         document.getElementById("userMsgHeader").innerHTML = `Hello ${name}!`;

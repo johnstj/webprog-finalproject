@@ -23,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(express.urlencoded({ extended: true })); // support encoded bodies
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -48,6 +49,8 @@ const corsOptions = {
   origin: process.env.REACT_URI, // Allow only requests from localhost:3000
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   // allowedHeaders: 'Content-Type,application/json'
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+	preflightContinue: false
 };
 app.use(cors(corsOptions));
 

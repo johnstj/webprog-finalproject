@@ -19,9 +19,12 @@ async function storeContact(req, res) {
     });
 
     try {
-        const savedContact = await newContact.save();
-        res.send(savedContact);
-        console.log(savedContact);
+        await newContact.save();
+        res.header(`Access-Control-Allow-Origin`, `*`);
+        res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE`);
+        res.header(`Access-Control-Allow-Headers`, `Content-Type`);
+        res.send("Successfully saved contact!");
+        console.log(`${newContact} saved!`);
     }
     catch(err) {
         console.log(err);
