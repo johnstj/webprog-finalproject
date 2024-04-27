@@ -15,6 +15,10 @@ const UserModel = mongoose.model('user', userSchema);
 async function storeUser(req, res) {
     const { username, fullname, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10, async function(err, hash) {
+
+        console.log(password)
+        console.log(hash)
+
         if(err) {
             console.log(err);
             return res.send('failure!');
@@ -34,11 +38,11 @@ async function storeUser(req, res) {
                 console.log(`${username} saved!`);
 
                 const token = jwt.sign(username, process.env.ACCESS_TOKEN, { expiresIn: '1h' });
-                res.cookie("token", token, {
+                /*res.cookie("token", token, {
                     httpOnly: true,
                     secure: true,
-                });
-                return res.redirect('/rate');
+                });*/
+                res.send(token);
             }
             catch(err) {
                 console.log(err);
@@ -50,34 +54,32 @@ async function storeUser(req, res) {
 
 async function checkUser(req, res) {
     const { username, password } = req.body;
-    const record = UserModel.find({ user_name: username });
-    const hashedPassword = await bcrypt.compare(password, record.hashedPassword, async function(err, hash) {
-        if(err) {
+
+    const user = await UserModel.findOne({ user_name: username })
+
+    console.log(user)
+    
+    const hashedPassword = await bcrypt.compare(password, user.hashed_password);
+    if(hashedPassword) {
+        try {
+            const token = jwt.sign(username, process.env.ACCESS_TOKEN, { });
+                /*res.cookie("token", token, {
+                    httpOnly: true,
+                    secure: true,
+                });*/
+            res.send(token);
+
+            console.log(`Welcome ${username}!`);
+            //return res.redirect('/');
+        }
+        catch(err) {
             console.log(err);
-            return res.send('Could not hash password! Aborting for security reasons!');
+            return res.send('Failure assigning token!');
         }
-        else {
-            const record = db.collection.find({ user_name: username, hashed_password: hash });
-            if(typeof record != 'undefined') {
-                try {
-                    const token = jwt.sign(record, process.env.ACCESS_TOKEN, { expiresIn: '1h' });
-                    res.cookie("token", token, {
-                        httpOnly: true,
-                        secure: true,
-                    });
-                    console.log(`Welcome ${username}!`);
-                    return res.redirect('/');
-                }
-                catch(err) {
-                    console.log(err);
-                    return res.send('Failure assigning token!');
-                }
-            }
-            else {
-                res.send("Invalid username or password!");
-            }
-        }
-    });
+    }
+    else {
+        console.log('Unable to hash');
+    }
 }
 
 module.exports = {
