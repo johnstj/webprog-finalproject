@@ -33,6 +33,6 @@ hr {
     padding: 2px;
   }
 
-  #restName {
+  .restName {
     display: none;
   }

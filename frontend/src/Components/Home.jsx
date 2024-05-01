@@ -43,6 +43,10 @@ const Home = () => {
                 console.log('Search successful!');
                 console.log(avg);
                 console.log(restaurantName);
+                let reviews = document.getElementsByClassName("restName");
+                for(let i = 0; i < reviews.length; i++) {
+                    reviews[i].style.display = "none";
+                }
             })
             .catch(err => {
                 setError('Search unsuccessful!');
@@ -71,10 +75,13 @@ const Home = () => {
             })
             .then(data => {
                 setElements(data.ratings);
-                document.getElementById("restName").style.display = "block";
                 document.getElementById("avg").style.display = "none";
                 console.log(data);
                 console.log('Search successful!');
+                let reviews = document.getElementsByClassName("restName");
+                for(let i = 0; i < reviews.length; i++) {
+                    reviews[i].style.display = "block";
+                }
             })
             .catch(err => {
                 setError('Search unsuccessful!');
@@ -122,7 +129,7 @@ const Home = () => {
             </div>
             {elements.map((element, index) => (
                 <div key={index} className="ratingContainer" id="userRatings">
-                <p id="restName">{element.restaurant_name}</p>
+                <p class="restName">{element.restaurant_name}</p>
                 <p>Zip Code: {element.restaurant_zipcode}</p>
                 <p>Score: {element.score}/5</p>
                 <p>{element.comments}</p>
