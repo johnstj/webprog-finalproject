@@ -33,6 +33,7 @@ const Login = () => {
         })
         .catch(err => {
             setError('Your username or password is incorrect!');
+            document.getElementById("invalidMsg").style.display = "block";
             console.error('Login error', err);
         });
     }
@@ -46,8 +47,7 @@ const Login = () => {
             let password = document.forms["loginForm"]["loginPassword"].value;
     
             if(validateUserName(username) & validatePassword(password)) {
-                errMsg = sendLoginData(username, password);
-                if(!(errMsg === undefined)) {document.getElementById("invalidMsg").style.display = "block";}
+                sendLoginData(username, password);
             }
     
         });
@@ -84,7 +84,7 @@ const Login = () => {
                     </div>
                     <div class="infoBox">
                         <div class="validationText" id="invalidMsg">
-                            <p>{errMsg}</p>
+                            <p>{error}</p>
                         </div>
                         <form id="loginForm" name="Form">
                             <label for="username">Username: </label>
