@@ -89,18 +89,18 @@ const Home = () => {
             <h1>Calling all food-lovers!</h1>
             <h3>Sign in to submit a rating, or scroll below to read ratings!</h3>
             <hr />
-            <label for="searchName">Search (Restaurant Name):</label>
+            <label for="searchName"> Search (Restaurant Name): </label>
             <input type="text" id="searchName" name="searchName" size="20" />
             <button type="button" id="searchNameSubmit" name="searchNameSubmit">Search By Name</button>
-            <label for="searchZipCode">Search (Zip Code):</label>
-            <input type="text" id="searchZipCode" name="searchZipCode" required minlength="5" maxlength="5" size="20" />
+            <label for="searchZipCode"> Search (Zip Code): </label>
+            <input type="text" id="searchZipCode" name="searchZipCode" size="20" />
             <button type="button" id="searchZipCodeSubmit" name="searchZipCodeSubmit">Search By Zip Code</button>
             {elements.map((element, index) => (
                 <div key={index} className="ratingContainer">
                 {/* Display whatever content you want for each element */}
                 <p>{element.restaurant_name}</p>
-                <p>{element.restaurant_zipcode}</p>
-                <p>{element.score}</p>
+                <p>Zip Code: {element.restaurant_zipcode}</p>
+                <p>Score: {element.score}/5</p>
                 <p>{element.comments}</p>
                 </div>
             ))}

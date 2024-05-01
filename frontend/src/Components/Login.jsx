@@ -104,6 +104,8 @@ const Login = () => {
                         </form>
                     </div>
                     <br/>
+                    <h4>No account?</h4>
+                    <a href="http://localhost:3000/createAccount">Create an account!</a>
                 </div>
             </div>
         </div>

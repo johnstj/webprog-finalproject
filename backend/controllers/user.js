@@ -21,7 +21,9 @@ async function storeUser(req, res) {
 
         if(err) {
             console.log(err);
-            return res.send('failure!');
+            res.status(401).send({
+                message: 'Failure hashing password!'
+            });
         }
         else {
             let newUser = new UserModel({
@@ -44,10 +46,10 @@ async function storeUser(req, res) {
                         secure: true,
                     });*/
                     res.status(200).send({
-                        message: `Logged in ${user.user_name}!`,
+                        message: `Logged in ${username}!`,
                         user: {
-                            username: user.user_name,
-                            email: user.user_email
+                            username: username,
+                            email: email
                         },
                         token
                     });

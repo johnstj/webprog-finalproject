@@ -9,6 +9,7 @@ import ContactForm from './Components/ContactForm';
 import Footer from './Components/Footer';
 import Login from './Components/Login';
 import RatingForm from './Components/RatingForm';
+import CreateAccount from './Components/CreateAccount';
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/rate" element={
             isLoggedIn ? <RatingForm /> : <Login />
+          } />
+          <Route path="/createAccount" element={
+            <CreateAccount />
           } />
           <Route path="/contact" element={<ContactForm />} />
           <Route path="/about" element={<About />} />

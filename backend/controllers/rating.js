@@ -21,11 +21,15 @@ async function storeRating(req, res) {
     });
 
     try {
-        const savedRating = await newRating.save();
-        res.send("Rating submitted!");
+        await newRating.save();
+        res.status(200).send({
+            message: `Successfully submitted ${restaurant_name} rating!`
+        });
     }
     catch(err) {
-        console.log(err);
+        res.status(401).send({
+            message: 'Failure assigning token!'
+        });
     }
 }
 

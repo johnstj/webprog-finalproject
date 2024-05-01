@@ -40,3 +40,13 @@
 body {
   background-color: black
 }
+
+button {
+  background-color: greenyellow;
+  color:black;
+}
+
+button:hover {
+  background-color: olivedrab;
+  color:white;
+}

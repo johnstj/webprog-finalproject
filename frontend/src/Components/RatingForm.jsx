@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import './RatingForm.css';
 
-async function sendFormData(user_id, score, restaurant_name, restaurant_zipcode, comments) {
-    await fetch('http://localhost:3001/rating/submitRating', {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({
-            user_id: user_id,
-            score: score,
-            restaurant_name: restaurant_name,
-            restaurant_zipcode: restaurant_zipcode,
-            comments: comments
-        }),
-        headers: {
-            'content-type': 'application/json',
-            'Access-Control-Allow-Origin': "*",
-            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
-            'Access-Control-Allow-Headers': 'Content-Type',
-        },
-    })
-    .then(function() {
-        document.getElementById("userMsgHeader").innerHTML = `Rating submitted!`;
-        document.getElementById("userMsg").style.display = "block";
-    })
-    .catch(function(err) {
-        document.getElementById("userMsgHeader").innerHTML = `Error submitting: ${err}`;;
-        document.getElementById("userMsg").style.display = "block";
-    })
-}
-
 const RatingForm = () => {
     useEffect(() => {
+        async function sendFormData(user_id, score, restaurant_name, restaurant_zipcode, comments) {
+            await fetch('http://localhost:3001/rating/submitRating', {
+                method: 'POST',
+                mode: 'cors',
+                body: JSON.stringify({
+                    user_id: user_id,
+                    score: score,
+                    restaurant_name: restaurant_name,
+                    restaurant_zipcode: restaurant_zipcode,
+                    comments: comments
+                }),
+                headers: {
+                    'content-type': 'application/json',
+                    'Access-Control-Allow-Origin': "*",
+                    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+                    'Access-Control-Allow-Headers': 'Content-Type',
+                },
+            })
+            .then(function() {
+                document.getElementById("userMsgHeader").innerHTML = `Rating submitted!`;
+                document.getElementById("userMsg").style.display = "block";
+            })
+            .catch(function(err) {
+                document.getElementById("userMsgHeader").innerHTML = `Error submitting: ${err}`;;
+                document.getElementById("userMsg").style.display = "block";
+            })
+        }
+
         document.getElementById("ratingSubmit").addEventListener('click', function(event) {
             event.preventDefault();
     
@@ -44,6 +44,13 @@ const RatingForm = () => {
                 sendFormData(user_id, score, restaurant_name, restaurant_zipcode, comments);
             }
     
+        });
+
+        document.getElementById("logout").addEventListener('click', function(event) {
+            event.preventDefault();
+
+            localStorage.removeItem("token");
+            window.location.reload();
         });
 
         function validateResName(restaurant_name) {
@@ -132,14 +139,10 @@ const RatingForm = () => {
                             <h3 id="userMsgHeader"></h3>
                             <p id="userMsgText"></p>
                         </div>
-                        {/* <h3>Email me!</h3>
-                        <p>Email: johnst79@students.rowan.edu</p>
-                        <div>
-                            <h3>Follow me on social media!</h3>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png" alt="Instagram" width="20px"/>
-                            <a href="https://www.instagram.com/joeyj02/">My Instagram</a>
-                        </div> */}
                     </div>
+                    <button type="button" id="logout" name="logout">
+                        Logout!
+                    </button>
                 </div>
             </div>
         </div>

@@ -26,13 +26,6 @@ const About = () => {
             <h3>Authentication is handled with <span id="emph">JWT</span>.</h3>
             <img src="https://www.praetorian.com/wp-content/uploads/2022/05/jwt.png" alt="JWT" width="400px" />
             <br />
-            <p>Other technologies used include:</p>
-            <ul id="mern">
-                <li>hello</li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
         </div>
     )
 }
