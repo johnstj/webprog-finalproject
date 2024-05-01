@@ -23,3 +23,16 @@ hr {
     padding: 5px;
     background-color: olivedrab;
   }
+
+  #avg {
+    display: none;
+  }
+
+  #userRatings {
+    background-color: rgb(221,255,221);
+    padding: 2px;
+  }
+
+  #restName {
+    display: none;
+  }

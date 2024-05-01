@@ -4,6 +4,8 @@ import './Home.css';
 const Home = () => {
     const [error, setError] = useState('');
     const [elements, setElements] = useState([]);
+    const [avg, setAvg] = useState([]);
+    const [restaurantName, setRestaurantName] = useState([]);
 
     async function sendSearchName(searchName) {
         setError('');
@@ -26,8 +28,21 @@ const Home = () => {
             })
             .then(data => {
                 setElements(data.ratings);
+                if(data.ratings.length > 0) {
+                    let sum = 0;
+                    data.ratings.forEach((element) => {
+                        sum += element.score;
+                    });
+                    let avg = sum / data.ratings.length;
+
+                    setAvg(avg);
+                    setRestaurantName(data.ratings[0].restaurant_name);
+                    document.getElementById("avg").style.display = "block";
+                }
                 console.log(data);
                 console.log('Search successful!');
+                console.log(avg);
+                console.log(restaurantName);
             })
             .catch(err => {
                 setError('Search unsuccessful!');
@@ -56,6 +71,8 @@ const Home = () => {
             })
             .then(data => {
                 setElements(data.ratings);
+                document.getElementById("restName").style.display = "block";
+                document.getElementById("avg").style.display = "none";
                 console.log(data);
                 console.log('Search successful!');
             })
@@ -72,7 +89,7 @@ const Home = () => {
             let searchName = document.getElementById("searchName").value;
     
             sendSearchName(searchName);
-    
+            
         });
 
         document.getElementById("searchZipCodeSubmit").addEventListener('click', function(event) {
@@ -99,10 +116,13 @@ const Home = () => {
             <input type="text" id="searchZipCode" name="searchZipCode" size="20" />
             <button type="button" id="searchZipCodeSubmit" name="searchZipCodeSubmit">Search By Zip Code</button>
             <br />
+            <div id="avg" className="ratingContainer" >
+                <h3>{restaurantName}</h3>
+                <p>Average Rating: {avg}/5</p>
+            </div>
             {elements.map((element, index) => (
-                <div key={index} className="ratingContainer">
-                {/* Display whatever content you want for each element */}
-                <p>{element.restaurant_name}</p>
+                <div key={index} className="ratingContainer" id="userRatings">
+                <p id="restName">{element.restaurant_name}</p>
                 <p>Zip Code: {element.restaurant_zipcode}</p>
                 <p>Score: {element.score}/5</p>
                 <p>{element.comments}</p>

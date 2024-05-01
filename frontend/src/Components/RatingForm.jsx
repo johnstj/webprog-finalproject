@@ -112,11 +112,13 @@ const RatingForm = () => {
                             <div class="validationText" id="resNameValidation">
                                 <p>Enter a restaurant name.</p>
                             </div>
+                            <br />
                             <label for="zipcode">Zip Code: </label>
                             <input type="text" id="zipcode" name="restaurantZipCode" required/><br/>
                             <div class="validationText" id="zipcodeValidation">
                                 <p>Enter a 5-digit zipcode.</p>
                             </div>
+                            <br />
                             <label for="score">Score: </label>
                             <select name="restaurantScore" id="score">
                                 <option value="5">5</option>
@@ -129,6 +131,7 @@ const RatingForm = () => {
                             <div class="validationText" id="scoreValidation">
                                 <p>Enter a number score out of 5.</p>
                             </div>
+                            <br />
                             <label for="comments">Comments: </label>
                             <textarea cols="40" rows="10" id="comments" name="restaurantComments" required></textarea><br/>
                             <div class="validationText" id="commentsValidation">
