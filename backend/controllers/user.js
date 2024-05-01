@@ -37,16 +37,35 @@ async function storeUser(req, res) {
 
                 console.log(`${username} saved!`);
 
-                const token = jwt.sign(username, process.env.ACCESS_TOKEN, { expiresIn: '1h' });
-                /*res.cookie("token", token, {
-                    httpOnly: true,
-                    secure: true,
-                });*/
-                res.send(token);
+                try {
+                    const token = jwt.sign(username, process.env.ACCESS_TOKEN, { });
+                    /*res.cookie("token", token, {
+                        httpOnly: true,
+                        secure: true,
+                    });*/
+                    res.status(200).send({
+                        message: `Logged in ${user.user_name}!`,
+                        user: {
+                            username: user.user_name,
+                            email: user.user_email
+                        },
+                        token
+                    });
+
+                    console.log(`Welcome ${username}!`);
+                }
+                catch(err) {
+                    console.log(err);
+                    res.status(401).send({
+                        message: 'Failure assigning token!'
+                    });
+                }
             }
             catch(err) {
                 console.log(err);
-                return res.send('failure!');
+                res.status(401).send({
+                    message: 'Failure saving user!'
+                });
             }
         }
     });
@@ -55,30 +74,49 @@ async function storeUser(req, res) {
 async function checkUser(req, res) {
     const { username, password } = req.body;
 
-    const user = await UserModel.findOne({ user_name: username })
-
-    console.log(user)
-    
-    const hashedPassword = await bcrypt.compare(password, user.hashed_password);
-    if(hashedPassword) {
-        try {
-            const token = jwt.sign(username, process.env.ACCESS_TOKEN, { });
-                /*res.cookie("token", token, {
-                    httpOnly: true,
-                    secure: true,
-                });*/
-            res.send(token);
-
-            console.log(`Welcome ${username}!`);
-            //return res.redirect('/');
-        }
-        catch(err) {
-            console.log(err);
-            return res.send('Failure assigning token!');
-        }
+    const user = await UserModel.findOne({ user_name: username });
+    console.log('what in ' + user);
+    if(user === null) {
+        res.status(401).send({
+            message: 'Username not found!'
+        });
     }
     else {
-        console.log('Unable to hash');
+        console.log(user)
+    
+        const hashedPassword = await bcrypt.compare(password, user.hashed_password);
+        if(hashedPassword) {
+            try {
+                const token = jwt.sign(username, process.env.ACCESS_TOKEN, { });
+                    /*res.cookie("token", token, {
+                        httpOnly: true,
+                        secure: true,
+                    });*/
+                res.status(200).send({
+                    message: `Logged in ${user.user_name}!`,
+                    user: {
+                        username: user.user_name,
+                        email: user.user_email
+                    },
+                    token
+                });
+
+                console.log(`Welcome ${username}!`);
+                //return res.redirect('/');
+            }
+            catch(err) {
+                console.log(err);
+                res.status(401).send({
+                    message: 'Failure assigning token!'
+                });
+            }
+        }
+        else {
+            console.log('Password incorrect!');
+            res.status(401).send({
+                message: 'Password incorrect!'
+            });
+        }
     }
 }
 

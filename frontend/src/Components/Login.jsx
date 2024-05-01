@@ -2,27 +2,42 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { useNavigate } from "react-router-dom";
 
-async function sendFormData(username, password) {
-    await fetch('http://localhost:3001/users/login', {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({
-            username: username,
-            password: password
-        }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(function() {
-        
-    })
-    .catch(function(err) {
-        
-    })
-}
-
 const Login = () => {
+    const [error, setError] = useState('');
+
+    async function sendLoginData(username, password) {
+        setError('');
+    
+        const result = await fetch('http://localhost:3001/users/login', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({
+                username: username,
+                password: password
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+            console.log('success');
+            window.location.reload();
+        })
+        .catch(err => {
+            setError('Your username or password is incorrect!');
+            console.error('Login error', err);
+        });
+    }
+
+    let errMsg;
     useEffect(() => {
         document.getElementById("loginSubmit").addEventListener('click', function(event) {
             event.preventDefault();
@@ -31,7 +46,8 @@ const Login = () => {
             let password = document.forms["loginForm"]["loginPassword"].value;
     
             if(validateUserName(username) & validatePassword(password)) {
-                sendFormData(username, password);
+                errMsg = sendLoginData(username, password);
+                if(!(errMsg === undefined)) {document.getElementById("invalidMsg").style.display = "block";}
             }
     
         });
@@ -48,7 +64,7 @@ const Login = () => {
         }
 
         function validatePassword(password) {
-            if(password.length > 6 || password === "") {
+            if(password.length < 6 || password === "") {
                 document.getElementById("passwordValidation").style.display = "block";
                 return false;
             }
@@ -67,6 +83,9 @@ const Login = () => {
                         <h2>Login</h2>
                     </div>
                     <div class="infoBox">
+                        <div class="validationText" id="invalidMsg">
+                            <p>{errMsg}</p>
+                        </div>
                         <form id="loginForm" name="Form">
                             <label for="username">Username: </label>
                             <input type="text" id="username" name="loginUserName" required/><br/>

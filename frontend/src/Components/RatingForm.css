@@ -1,0 +1,64 @@
+.contactForm button {
+    background-color: greenyellow;
+    color:black;
+}
+
+.contactForm button:hover {
+    background-color: olivedrab;
+    color:white;
+}
+
+.contactForm input, textarea {
+    background-color: greenyellow;
+    border: 2px solid #f2f2f2;
+    width: 95%;
+    opacity: 50%;
+}
+
+.contactForm textarea {
+    flex-grow: 1;
+}
+
+.contactForm label {
+    display: inline-block;
+    inline-size: 100px;
+}
+
+#userMsg {
+    display: none;
+}
+
+#resNameValidation {
+    display: none;
+}
+
+#zipcodeValidation {
+    display: none;
+}
+
+#scoreValidation {
+    display: none;
+}
+
+#commentsValidation {
+    display: none;
+}
+
+.validationText p {
+    color: red;
+    font-size: 10px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 5px;
+}
+
+a {
+    color: olivedrab;
+}
+
+a:hover {
+    background-color: olivedrab;
+    color: white;
+    border-radius: 2px;
+}

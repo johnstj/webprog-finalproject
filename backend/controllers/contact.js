@@ -24,7 +24,7 @@ async function storeContact(req, res) {
         res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE`);
         res.header(`Access-Control-Allow-Headers`, `Content-Type`);
         res.send("Successfully saved contact!");
-        console.log(`${newContact} saved!`);
+        console.log(`${contact_name} saved!`);
     }
     catch(err) {
         console.log(err);
