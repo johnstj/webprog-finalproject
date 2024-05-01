@@ -69,5 +69,6 @@ async function getRatingByZip(req, res) {
 
 module.exports = {
     storeRating,
-    getRatingByName
+    getRatingByName,
+    getRatingByZip
 };

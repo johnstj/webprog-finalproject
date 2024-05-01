@@ -118,7 +118,14 @@ const RatingForm = () => {
                                 <p>Enter a 5-digit zipcode.</p>
                             </div>
                             <label for="score">Score: </label>
-                            <input type="text" id="score" name="restaurantScore" required/><br/>
+                            <select name="restaurantScore" id="score">
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                                <option value="0">0</option>
+                            </select>
                             <div class="validationText" id="scoreValidation">
                                 <p>Enter a number score out of 5.</p>
                             </div>

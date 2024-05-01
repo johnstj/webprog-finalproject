@@ -20,7 +20,7 @@ router.get('/searchName/:name', function(req, res) {
 
 /* GET ratings by zipcode. */
 router.get('/searchZipCode/:zipcode', function(req, res) {
-  rating.getRatingByName(req, res);
+  rating.getRatingByZip(req, res);
 });
 
 module.exports = router;

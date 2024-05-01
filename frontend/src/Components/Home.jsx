@@ -55,6 +55,7 @@ const Home = () => {
                 return response.json();
             })
             .then(data => {
+                setElements(data.ratings);
                 console.log(data);
                 console.log('Search successful!');
             })
@@ -87,14 +88,17 @@ const Home = () => {
     return (
         <div class="contentArea" id="main">
             <h1>Calling all food-lovers!</h1>
-            <h3>Sign in to submit a rating, or scroll below to read ratings!</h3>
+            <h3><a href="http://localhost:3000/rate">Sign in</a> to submit a rating, or scroll below to read ratings!</h3>
+            <br />
             <hr />
+            <br />
             <label for="searchName"> Search (Restaurant Name): </label>
             <input type="text" id="searchName" name="searchName" size="20" />
             <button type="button" id="searchNameSubmit" name="searchNameSubmit">Search By Name</button>
             <label for="searchZipCode"> Search (Zip Code): </label>
             <input type="text" id="searchZipCode" name="searchZipCode" size="20" />
             <button type="button" id="searchZipCodeSubmit" name="searchZipCodeSubmit">Search By Zip Code</button>
+            <br />
             {elements.map((element, index) => (
                 <div key={index} className="ratingContainer">
                 {/* Display whatever content you want for each element */}
